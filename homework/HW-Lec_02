@@ -1,0 +1,11 @@
+import math
+
+print("To find the multiplicity:")
+N= int(input('Input number of oscillators (N):'))
+q= int(input('Input energy value (q):'))
+
+if N> 0 and q> -1:
+    Omega=(((math.factorial((q)+(N)-1)))/(math.factorial((q))*math.factorial((N)-1)))
+    print("Multiplicity=",Omega)
+else:
+    print("Unacceptable values entered. Enter numerical values where N>0 and q>-1.")
