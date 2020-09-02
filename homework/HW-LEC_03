@@ -1,0 +1,66 @@
+#importing necessary functions out of the matplot and math libraries
+import matplotlib.pyplot as plot
+from math import log, exp
+
+#the problem has a constant energy level of 100 but consists of 2 different sets of interacting solids
+#omegatotal= omega1*omega2
+
+#defining the variables used in the equations
+NA= 300
+NB= 200
+NC=3000
+ND=2000
+qtotal=100
+
+#defining the functions that define each solid
+def S1(NA,qA):
+    return exp((log(factorial(int(qA)+int(NA)-1)))-((log(factorial(int(qA))))+(log(factorial(int(NA)-1)))))
+
+def S2(NB,qA):
+    return exp((log(factorial(int(qt-qA)+int(NB)-1)))-((log(factorial(int(qt-qA))))+(log(factorial(int(NB)-1)))))
+
+def S3(NC,qA):
+    return exp((log(factorial(int(qA)+int(NC)-1)))-((log(factorial(int(qA))))+(log(factorial(int(NC)-1)))))
+
+def S4(ND,qA):
+    return exp((log(factorial(int(qt-qA)+int(ND)-1)))-((log(factorial(int(qt-qA))))+(log(factorial(int(ND)-1)))))
+
+#defining the plots and data sets
+#I made them into two different plots just to be able to compare them more easily, however, please let me know if you would like me to combine the data into one graph.
+
+def Multiplicity_Plot(N):
+    Dataset_1= range(N+1)
+    Omegat1=[]
+    
+    for qA in Dataset_1:
+        Omegat1.append((S1(NA,qA))*(S2(NA,qA)))
+    
+    plot.plot(Dataset_1, Omegat1)
+    
+    plot.xlabel('Total Energy (qt)')
+    plot.ylabel('Multiplicity total (Omega total)')
+    plot.title('Graph for N=200 and N=300')
+    plot.show()
+
+Multiplicity_Plot(qt)
+
+def Multiplicity_Plot(N):
+    Dataset_2= range(N+1)
+    Omegat2=[]
+    
+    for qA in Dataset_2:
+        Omegat2.append((S3(NC,qA))*(S4(ND,qA)))
+    
+    plot.plot(Dataset_2, Omegat2,'-.r')
+    
+    plot.xlabel('Total Energy (qt)')
+    plot.ylabel('Multiplicity total (Omega total)')
+    plot.title('Graph for N=2000 and N=3000')
+    plot.show()
+
+Multiplicity_Plot(qt)
+
+#Now we plot!
+
+#As you can see the distribution is a nice symmetrical bell curve and as the N increases- the maxima of the bell curve all increasingly shifts in total energy
+#As N increases, the bell curve seems to be narrower and more localized at the maxima.
