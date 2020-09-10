@@ -1,0 +1,49 @@
+#Mandelbrot Set Program
+#Rosalie Chaleunsouck
+#The program is designed to calculate iterations for the Mandelbrot set and produce a graphical representation at the end of the iterations.
+
+
+#importing notebooks
+import matplotlib.pyplot as mpl
+import numpy as np
+from itertools import product
+
+
+#Defining the Mandelbrot equation
+#in theory- z is a complex number and c is a complex constant
+def Mandelbrot (c):
+  z = 0.0 + 0.0*1j   
+  n=0
+  while abs(z) <= 2 and n <100:  #setting the parameters in which |z| never passes 2
+    z= z**2 +c
+    n+= 1
+  return n
+
+#setting the resolution of the Mandelbrot set plot
+N=1000
+
+#Setting up the empty array for the Mandelbrot set
+MandelbrotSet=np.empty([N,N])
+
+#Defining the graph axes and parameters
+x=np.linspace (-2,2,N)
+y=np.linspace (-2,2,N)
+
+for i, j in product(range(N) , range(N)):
+  MandelbrotSet[i,j]=Mandelbrot(x[i]+y[j]*1j)
+
+#Timing assistance to calculate the number of loops and their average timing
+print("Number of Loops, Time iteration took to complete the loop")
+%timeit(MandelbrotSet)
+
+#Set up for the Mandelbrot set graph
+mpl.figure(figsize= (10, 10))
+mpl.axis('off')
+mpl.magma()
+mpl.imshow(MandelbrotSet)
+mpl.colorbar
+mpl.show()
+
+#The colors in the graph signify where an iteration lies outside the set and is denoted by the white colored regions.
+#The black colored regions signify iterations inside the Mandelbrot set.
+
