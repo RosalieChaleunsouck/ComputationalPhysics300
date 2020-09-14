@@ -1,0 +1,68 @@
+#Integration Homework
+#Rosalie Chaleunsouck
+#Phys 300
+
+#Import Notebooks
+import numpy as np
+import matplotlib.pyplot as plt
+
+print("please input the integrationFx(ex:Rectangle, Trapezoid, simpson)=(start, end, parts)")
+
+
+#first we look at the approximation for the rectanglular integration
+def Rectangle(start, end, parts):
+    f= lambda x: np.exp(-x**2) #define the equation
+    
+    deltax=(end - start) /parts
+    resultsx= np.linspace(start, end, parts+1)
+    resultsy= f(resultsx)
+    
+    area=np.empty([parts], float) #area calculation
+    
+    
+    for i in range (parts):
+        area[i]=resultsy[i]*deltax
+    return(sum(area))
+    
+    x=np.linspace(start,end,parts)
+    y= np.exp(-x**2)
+    plt.plot(x, y, 'b')
+    plt.bar(resultsx+deltax/2, resultsy, deltax, edgecolor='red')
+    plt.show
+    
+#now defining the trapezoidal integration
+def Trapezoid(start, end, parts):
+    f=lambda x: np.exp(-x**2) #equation definition
+    
+    deltax = (end-start)/ parts
+    resultsx= np.linspace(start, end, parts+1)
+    resultsy=f(resultsx)
+    
+    #area calculation
+    area=np.empty([parts], float)
+    for i in range(parts):
+            area[i]=(resultsy[i]+resultsy[i+1])*deltax/2
+                     
+    return sum(area)
+    
+    def simpson(start,end,parts): #definition of the simpson as according to the numpy notebook
+    f=lambda x: np.exp(-x**2)
+    
+    deltax=(end-start) /parts
+    resultx=np.linspace(start, end, parts+1)
+    resulty= f(resultx)
+    
+    area=np.empty([parts], float)
+    
+    for i in range(parts):
+        if i ==0 or i == parts:
+            area[i]= 1/3*resulty[i]*deltax
+        elif i % 2==0:
+            area[i]=2/3*resulty[i]*deltax
+        elif i % 2 ==0:
+            area[i]= 4/3*resulty[i]*deltax
+            
+    return(sum(area))
+    
+#The simpson Rule needs less data points than the others due to the Rule being based on a quadratic allowing more accuracy with less data.
+
